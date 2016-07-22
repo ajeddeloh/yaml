@@ -95,6 +95,17 @@ func Unmarshal(in []byte, out interface{}) (err error) {
 	return nil
 }
 
+func UnmarshalToNode(in []byte) *Node {
+	p := newParser(in)
+	//defer p.destroy()
+	node := p.parse()
+	if node == nil {
+		return nil
+	}
+	tmp := Node(*node)
+	return &tmp
+}
+
 // Marshal serializes the value provided into a YAML document. The structure
 // of the generated document will reflect the structure of the value itself.
 // Maps and pointers (to struct, string, int, etc) are accepted as the in value.
